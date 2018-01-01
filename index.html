@@ -3,21 +3,18 @@
 <head>
 	<title></title>
  	<!-- Required meta tags -->
+ 	<link rel="icon" type="image/png" href="snake.png" />
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
-	<style type="text/css">
-		#canvas{
-			background-color: #ECEFF1;
-		}
-	</style>
+  <link rel="stylesheet" href="./style.css">
 </head>
 <body>
 	<div class="container">
 		<div class="row">
-			<div class="col-12 text-center mt-5 mb-5">
+			<div class="col-12 text-center mt-3 mb-3">
 				<h1>Snake</h1>
 			</div>
 			<div class="col-4 text-center">
@@ -34,14 +31,44 @@
 				<h4>Velocidad</h4>
 				<p class="display-4"><span id="speed"></span> Km/H</p>
 			</div>
-			<div class="col-12 text-center">
+			<div class="col-2 text-center m-0 p-0">
+				<div>Colores</div>
+				<div class="btn-group-vertical" role="group" aria-label="Basic example">
+				  <button type="button" onclick="changeColorWorn('#F44336')" class="btn btn-red"> </button>
+				  <button type="button" onclick="changeColorWorn('#E91E63')" class="btn btn-pink"> </button>
+				  <button type="button" onclick="changeColorWorn('#9C27B0')" class="btn btn-purple"> </button>
+				  <button type="button" onclick="changeColorWorn('#673AB7')" class="btn btn-deep-purple"> </button>
+				  <button type="button" onclick="changeColorWorn('#3F51B5')" class="btn btn-indigo"> </button>
+				  <button type="button" onclick="changeColorWorn('#2196F3')" class="btn btn-blue"> </button>
+				  <button type="button" onclick="changeColorWorn('#03A9F4')" class="btn btn-light-blue"> </button>
+				  <button type="button" onclick="changeColorWorn('#00BCD4')" class="btn btn-cyan"> </button>
+				  <button type="button" onclick="changeColorWorn('#009688')" class="btn btn-teal"> </button>
+				  <button type="button" onclick="changeColorWorn('#4CAF50')" class="btn btn-green"> </button>
+				  <button type="button" onclick="changeColorWorn('#8BC34A')" class="btn btn-light-green"> </button>
+				  <button type="button" onclick="changeColorWorn('#CDDC39')" class="btn btn-lime"> </button>
+				  <button type="button" onclick="changeColorWorn('#FFEB3B')" class="btn btn-yellow"> </button>
+				  <button type="button" onclick="changeColorWorn('#FFC107')" class="btn btn-amber"> </button>
+				  <button type="button" onclick="changeColorWorn('#FF9800')" class="btn btn-orange"> </button>
+				  <button type="button" onclick="changeColorWorn('#FF5722')" class="btn btn-deep-orange"> </button>
+				  <button type="button" onclick="changeColorWorn('#795548')" class="btn btn-brown"> </button>
+				  <button type="button" onclick="changeColorWorn('#9E9E9E')" class="btn btn-grey"> </button>
+				  <button type="button" onclick="changeColorWorn('#607D8B')" class="btn btn-blue-grey"> </button>
+				  <button type="button" onclick="changeColorWorn('#000000')" class="btn btn-black"> </button>
+				</div>
+			</div>
+			<div class="col-10 text-center">
 				<canvas id="canvas" width="800px" height="368px">		
 				</canvas>				
+			</div>			
+			<div class="col-6 text-center">
+				<button id="applyLimits" onclick="changeApplyLimits()" type="button" class="btn btn-secondary">
+					Sin imites
+				</button>
 			</div>
-			<div class="col-12 text-right">
+			<div class="col-6 text-right">
 				<button onclick="reset()" type="button" class="btn btn-warning">Reset</button>
 			</div>
-			<div class="col-12 text-right mt-5 mb-3">
+			<div class="col-12 text-right mt-4">
 				Developed by: <a href="mailto:carl.rdj@gmail.com">carl.rdj@gmail.com</a>
 			</div>
 		</div>
@@ -51,5 +78,14 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
 	<script type="text/javascript" src="script.js"></script>
+
+	<!-- Global site tag (gtag.js) - Google Analytics -->
+	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-111794677-1"></script>
+	<script>
+	  window.dataLayer = window.dataLayer || [];
+	  function gtag(){dataLayer.push(arguments);}
+	  gtag('js', new Date());
+	  gtag('config', 'UA-111794677-1');
+	</script>
 </body>
 </html>

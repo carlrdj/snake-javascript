@@ -1,0 +1,66 @@
+#canvas{
+	background-color: #F1F8E9;
+	background-image: url('grass.png');
+ 	border:1px dashed #666666;
+}
+
+.btn-red{
+	background-color: #F44336;
+}
+.btn-pink{
+	background-color: #E91E63;
+}
+.btn-purple{
+	background-color: #9C27B0;
+}
+.btn-deep-purple{
+	background-color: #673AB7;
+}
+.btn-indigo{
+	background-color: #3F51B5;
+}
+.btn-blue{
+	background-color: #2196F3;
+}
+.btn-light-blue{
+	background-color: #03A9F4;
+}
+.btn-cyan{
+	background-color: #00BCD4;
+}
+.btn-teal{
+	background-color: #009688;
+}
+.btn-green{
+	background-color: #4CAF50;
+}
+.btn-light-green{
+	background-color: #8BC34A;
+}
+.btn-lime{
+	background-color: #CDDC39;
+}
+.btn-yellow{
+	background-color: #FFEB3B;
+}
+.btn-amber{
+	background-color: #FFC107;
+}
+.btn-orange{
+	background-color: #FF9800;
+}
+.btn-deep-orange{
+	background-color: #FF5722;
+}
+.btn-brown{
+	background-color: #795548;
+}
+.btn-grey{
+	background-color: #9E9E9E;
+}
+.btn-blue-grey{
+	background-color: #607D8B;
+}
+.btn-black{
+	background-color: #000000;
+}

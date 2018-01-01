@@ -3,13 +3,14 @@ var canvas = document.getElementById("canvas");
 var showSpeed = document.getElementById("speed");
 var showPoint = document.getElementById("point");
 var showLevel = document.getElementById("level");
+var showApplyLimits = document.getElementById("applyLimits");
 var limit_area_x = canvas.width;
 var limit_area_y = canvas.height;
 var wornSquare = 16;
 var area = canvas.getContext("2d");
 var x_fin = 400;
 var y_fin = 144;
-var color = "#FF9800";
+var color = "#F44336";
 var border = 3;
 var direction = { UP: 38, DOWN: 40, LEFT: 37, RIGHT: 39, SPACEBAR: 32};
 var eat_easy = [];
@@ -19,6 +20,8 @@ var speedInitial = 500;
 var speed = speedInitial;
 var point = 0;
 var level = 1;
+var applyLimits = true;
+var interval;
 showPoint.innerHTML = "----";
 showLevel.innerHTML = level;
 showSpeed.innerHTML = 510 - speed;
@@ -26,18 +29,38 @@ bodyReset();
 drawWorn();
 generateEatEasy();
 startInterval();
+
 function startInterval() {
-    duration = speed;
-    interval = setInterval(function () {   
-    	wormSpeed(arrow);
-      clearInterval(interval);
-      startInterval();      
-    }, duration);
+  duration = speed;
+  interval = setInterval(function () {   
+  	wormSpeed(arrow);
+    clearInterval(interval);
+    startInterval();      
+  }, duration);
+}
+
+function changeColorWorn(rgb){
+	color = rgb;
+	drawWorn();
+}
+changeApplyLimits();
+function changeApplyLimits(){
+	if (applyLimits) {
+		console.log("Sin limites");
+		showApplyLimits.innerHTML = "Sin limites";
+		showApplyLimits.classList.replace("btn-danger", "btn-secondary");
+		applyLimits = false;
+	}else{
+		console.log("Con limites");
+		showApplyLimits.innerHTML = "Con limites";
+		showApplyLimits.classList.replace("btn-secondary", "btn-danger");
+		applyLimits = true;
+	}	
 }
 
 function reset(){
 	bodyReset();
-	arrow = "";
+	arrow = direction.RIGHT;
 	point = 0;
 	showPoint.innerHTML = "----";
 	speedForLevel(level);
@@ -47,17 +70,18 @@ function reset(){
 }
 
 function increaseLevel(){
-	if (point>0) {
+	if (point>0 && level < 24) {
 		if (window.confirm("¿Deseas subir de nivel?\nSe perderan todos tus puntos acumulados.")) {
 			point = 0;
-			if (level < 21) {
+			reset();			
+			if (level < 24) {
 				level++;
 				speedForLevel(level);
 				showLevel.innerHTML = level;
 			}			
 		}
 	}else{
-		if (level < 21) {
+		if (level < 24) {
 			level++;
 			speedForLevel(level);
 			showLevel.innerHTML = level;
@@ -70,7 +94,7 @@ function decreaseLevel(){
 		if (window.confirm("¿Deseas bajar de nivel?\nSe perderan todos tus puntos acumulados.")) {
 			point = 0;
 			reset();			
-			if (level < 21) {
+			if (level > 1) {
 				level--;
 				speedForLevel(level);
 				showLevel.innerHTML = level;
@@ -135,7 +159,19 @@ function verifyEatEasy(){
 			console.log("TE LA COMISTE :D !!!");
 			generateEatEasy();
 			if (speed > 20) {
-				speed = speed - 10;
+				if (speed > 400) {
+					speed = speed - 10;
+				}else if (speed > 300) {
+					speed = speed - 8;
+				}else if (speed > 200) {
+					speed = speed - 6;
+				}else if (speed > 100) {
+					speed = speed - 5;
+				}else if (speed > 50) {
+					speed = speed - 3;
+				}else {
+					speed = speed - 1;
+				}
 			}
 			point++;
 			showPoint.innerHTML = point;
@@ -168,9 +204,9 @@ function generateEatEasy(){
 }
 
 function verifyCannibal(){
-	for (var i = 0; i < body.length; i++) {
+	for (var i = 0; i < body.length - 1; i++) {
 		if((body[i][0] == x_fin) && (body[i][1] == y_fin)){
-			console.log("PERDISTE :( POR CANIBAL !!!!");
+			console.log("PERDISTE :( POR CANIBAL !!!! -> SIMIO NO MATA A SIMIO");
 			alert("PERDISTE :( POR CANIBAL !!!!");
 			reset();
 		}		
@@ -178,16 +214,26 @@ function verifyCannibal(){
 }
 
 function verifyLimits(){
-	if (x_fin < 0) {
-		x_fin = limit_area_x - wornSquare;
-	}else if(y_fin < 0){
-		y_fin = limit_area_y - wornSquare;
+	if (applyLimits) {
+		if (x_fin > limit_area_x - wornSquare || y_fin > limit_area_y - wornSquare || x_fin < 0 || y_fin < 0) {
+			alert("PERDISTE :( POR SALIR DE LOS LIMITES !!!!");
+			console.log("PERDISTE :( POR SALIR DE LOS LIMITES !!!! -> ERES MUY REBELDE :)");
+			reset();
+		}
+	}else{
+		if (x_fin < 0) {
+			x_fin = limit_area_x - wornSquare;
+		}else if(y_fin < 0){
+			y_fin = limit_area_y - wornSquare;
+		}
+		if (x_fin == limit_area_x) {
+			x_fin = 0;
+		}else if(y_fin == limit_area_y){
+			y_fin = 0;
+		}
+
 	}
-	if (x_fin == limit_area_x) {
-		x_fin = 0;
-	}else if(y_fin == limit_area_y){
-		y_fin = 0;
-	}
+
 }
 
 function reBody(x, y){
@@ -244,7 +290,7 @@ function wormSpeed(arrow){
 
 function drawSquare(x, y)
 { 
-	area.fillStyle="#9C27B0";
+	area.fillStyle=color;
   area.fillRect(x, y, wornSquare, wornSquare);
   area.clearRect(x + border, y + border, wornSquare - border * 2, wornSquare - border * 2);
 	area.clearRect(body[body.length-1][0], body[body.length-1][1], wornSquare, wornSquare);
@@ -260,12 +306,12 @@ function bodyReset(){
 	for (var i = 0; i < body.length; i++) {		
 		area.clearRect(body[i][0], body[i][1], wornSquare, wornSquare);
 	}
-	body = [];
 	x_fin = 400;
 	y_fin = 144;
+	body = [];
 	for (var i = 0; i < 4; i++) {
 		body.push([(x_fin - (i * wornSquare)), y_fin]);
-	}		
+	}
 }
 
 function eatEasyReset(){
